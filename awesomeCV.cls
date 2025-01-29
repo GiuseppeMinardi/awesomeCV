@@ -1,11 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{awesomeCV}[2020/09/22 my personal CV style]
+\ProvidesClass{awesomeCV}[2020/09/22 Example LaTeX class]
 
 \LoadClass{article}
 
-\RequirePackage{calc}                                                           % for easier length calculations (infix notation)
+\RequirePackage{calc} 
+\RequirePackage{graphicx} 
+% for easier length calculations (infix notation)
 \RequirePackage{fancyhdr}                                                       % for setting header and footer
-\RequirePackage[a4paper, left=5mm, right=13mm, top=9mm, bottom=10mm]{geometry}  % for setting margins (\newgeometry)
+\RequirePackage[a4paper, left=10mm, right=10mm, top=10mm, bottom=10mm]{geometry}  % for setting margins (\newgeometry)
 \RequirePackage{microtype}                                                      % for microtypography stuff
 
 %URL
@@ -18,14 +20,15 @@
 
 % colours
 \RequirePackage{xcolor}                                                         % for colours
-\definecolor{cvnamecolor}{HTML}{F4AD6D}
-\definecolor{cvsectioncolor}{HTML}{B78C30}
-\definecolor{cvrulecolor}{HTML}{B78C30}
-\definecolor{cvtitlecolor}{HTML}{876621}
-\definecolor{cvdurationcolor}{HTML}{A0CED9}
+\definecolor{cvnamecolor}{HTML}{D64933}
+\definecolor{cvsectioncolor}{HTML}{1A659E}
+\definecolor{cvtitlecolor}{HTML}{191D32}
+\definecolor{cvrulecolor}{HTML}{898980}
+\definecolor{cvdurationcolor}{HTML}{898980}
 \definecolor{cvheadingcolor}{RGB}{0,0,0}
 \definecolor{cvmaincolor}{RGB}{0,0,0}
 
+%\color{cvmaincolor}
 
 
 
@@ -35,22 +38,22 @@
 
 % width of the gap between left and right column
 \newlength{\cvcolumngapwidth}
-\setlength{\cvcolumngapwidth}{2mm}
+\setlength{\cvcolumngapwidth}{3mm}
 
 % left column width
 \newlength{\cvleftcolumnwidth}
-\setlength{\cvleftcolumnwidth}{30mm}
+\setlength{\cvleftcolumnwidth}{25mm}
 
 % right column width
 \newlength{\cvrightcolumnwidth}
-\setlength{\cvrightcolumnwidth}{\textwidth - \cvcolumngapwidth - \cvleftcolumnwidth - 5mm}
+\setlength{\cvrightcolumnwidth}{\textwidth-\cvleftcolumnwidth-\cvcolumngapwidth}
 
 % set paragraph indentation to 0, because it screws up the whole layout otherwise
 \setlength{\parindent}{0mm}
 
 % styles
-\newcommand{\cvnamestyle}[1]{{\Huge\color{cvnamecolor}{#1}}}
-\newcommand{\cvsectionstyle}[1]{{\large\bfseries\scshape\textcolor{cvsectioncolor}{#1}}}
+\newcommand{\cvnamestyle}[1]{{\Large\color{cvnamecolor}{#1}}}
+\newcommand{\cvsectionstyle}[1]{{\large\bfseries\textcolor{cvsectioncolor}{#1}}}
 \newcommand{\cvtitlestyle}[1]{{\large\bfseries\textcolor{cvtitlecolor}{#1}}}
 \newcommand{\cvorganizationstyle}[1]{{\scshape #1}}
 \newcommand{\cvdurationstyle}[1]{{\small\textcolor{cvdurationcolor}{#1}}}
@@ -62,11 +65,11 @@
 
 % vertical space after personal info and standard CV items
 \newlength{\cvafteritemskipamount}
-\setlength{\cvafteritemskipamount}{1mm plus 1.25mm minus 1.25mm}
+\setlength{\cvafteritemskipamount}{2mm plus 1.25mm minus 1.25mm}
 
 % vertical space after sections
 \newlength{\cvaftersectionskipamount}
-\setlength{\cvaftersectionskipamount}{2mm plus 0.5mm minus 0.5mm}
+\setlength{\cvaftersectionskipamount}{2.5mm plus 0.5mm minus 0.5mm}
 
 % extra vertical space to be used when a section starts with an item with a heading (e.g. in the skills section),
 % so that the heading does not follow the section name too closely
@@ -114,19 +117,20 @@
         #2
     \end{minipage}
 
+
     \vspace{\cvafteritemskipamount}
 }
 
 % typesets a title, with appropriate vertical space after
 % @param #1 title text
+
 \newcommand{\cvtitle}[1]{
     % title
     \cvtitlestyle{#1}
-
     % space after
-    \vspace{\cvaftertitleskipamount}
+    %\vspace{\cvaftertitleskipamount}
     % XXX need to subtract cvparskip here, because it is automatically inserted after the title "paragraph"
-    \vspace{-\cvparskip}
+    %\vspace{-\cvparskip}
 }
 
                                                                                 % creates a "section" CV item with the given left column content,
@@ -163,11 +167,10 @@
     \begin{minipage}[t]{\cvrightcolumnwidth}
         \setlength{\parskip}{\cvparskip}
 
-        \cvtitle{#2}
-
+        \cvtitle{#2} --
         \cvorganizationstyle{#3}
 
-        #4
+        \small{#4}
     \end{minipage}
 
     % space after
@@ -186,9 +189,7 @@
     \begin{minipage}[t]{\cvrightcolumnwidth}
         \setlength{\parskip}{\cvparskip}
 
-        \cvtitle{#2}
-
-        #3
+        \cvtitlestyle{#2}: \small{#3}
     \end{minipage}
 
     % space after
@@ -198,12 +199,12 @@
 \newcommand{\cvsimpleitem}[2]{
     % left and right column
     \begin{minipage}[t]{\cvleftcolumnwidth}
-        \raggedleft \cvdurationstyle{#1}
+        \raggedleft \cvdurationstyle{ #1 }
 
     \end{minipage}% XXX necessary comment to avoid unwanted space
     \hspace{\cvcolumngapwidth}% XXX necessary comment to avoid unwanted space
     \begin{minipage}[t]{\cvrightcolumnwidth}
-        \setlength{\parskip}{\cvparskip} #2
+        \setlength{\parskip}{\cvparskip} \small{#2}
     \end{minipage}
 
     % space after
