@@ -118,29 +118,26 @@
 \newcommand{\cvheadingstyle}[1]{{\normalsize\textcolor{cvheadingcolor}{#1}}}
 \newcommand{\cvpublicationstyle}[1]{{\normalsize\textcolor{cvpublicationcolor}{#1}}}
 
-% Spacing definitions
-\newlength{\cvafteritemskipamount}              % Space after CV items
-\setlength{\cvafteritemskipamount}{4mm plus 2mm minus 2mm}
+% intra-item spacing
+% ------------------
 
-\newlength{\cvaftersectionskipamount}           % Space after sections
-\setlength{\cvaftersectionskipamount}{5mm plus 1mm minus 1mm}
-
-\newlength{\cvbetweensectionandheadingextraskipamount}  % Extra space for sections with headings
-\setlength{\cvbetweensectionandheadingextraskipamount}{1mm plus 0.25mm minus 0.25mm}
-
-\newlength{\cvafternameskipamount}              % Space after name
+% vertical space after name
+\newlength{\cvafternameskipamount}
 \setlength{\cvafternameskipamount}{1mm plus 0.75mm minus 0.75mm}
 
-\newlength{\cvafterpersonalinfolineskipamount}  % Space after personal info lines
+% vertical space after personal info lines
+\newlength{\cvafterpersonalinfolineskipamount}
 \setlength{\cvafterpersonalinfolineskipamount}{1mm plus 0.5mm minus 0.5mm}
 
-\newlength{\cvaftertitleskipamount}             % Space after titles
+% vertical space after titles
+\newlength{\cvaftertitleskipamount}
 \setlength{\cvaftertitleskipamount}{1.5mm plus 0.25mm minus 0.25mm}
 
-\newlength{\cvparskip}                          % Paragraph skip amount
-\setlength{\cvparskip}{1mm plus 0.25mm minus 0.25mm}
+% value to be used as parskip in right column of CV items and itemsep in lists (same for both, for consistency)
+\newlength{\cvparskip}
+\setlength{\cvparskip}{0.5mm plus 0.125mm minus 0.125mm}
 
-% List configuration
+% set global list configuration (use parskip as itemsep, and no separation otherwise)
 \RequirePackage{enumitem}
 \setlist{parsep=0mm, topsep=0mm, partopsep=0mm, itemsep=\cvparskip}
 
