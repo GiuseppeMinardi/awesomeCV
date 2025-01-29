@@ -1,5 +1,8 @@
-\documentclass[12pt]{awesomeCV}
+\documentclass[10pt]{../src/awesomeCV}
 \usepackage{fontawesome5}
+\usepackage[backend=biber, style=numeric, sorting=ydnt]{biblatex}
+\addbibresource{shrek_publications.bib}
+
 \begin{document}
 \definecolor{cvnamecolor}{HTML}{7B9F35}  % Changed to a more ogre-like green
 
@@ -18,6 +21,9 @@
 \cvitem{}{Lead Ogre}{Far Far Away}{
 Accomplished ogre with extensive experience in swamp management, princess rescue operations, and fairy tale creature rehabilitation. Known for breaking stereotypes about ogres and pioneering work in cross-species relationships. Expert in onion-based analogies and maintaining work-life balance through territorial swamp boundaries.}
 
+\cvsection{Publications}
+\cvpublications{*}
+
 \cvsection{Work Experience}
 \cvitem{2010-Present}{Royal Family Member \& Consultant}{Far Far Away Kingdom}{
 \begin{itemize}
@@ -30,14 +36,12 @@ Accomplished ogre with extensive experience in swamp management, princess rescue
 \begin{itemize}
 \item Managed kingdom operations alongside Princess Fiona
 \item Led diplomatic missions to establish peace with dragons
-\item Reduced kingdom-wide villain incidents by 75\%
 \item Organized annual "Swamp Idol" talent competition
 \end{itemize}}
 
 \cvitem{2000-2001}{Professional Princess Rescuer}{Farquaad Enterprises}{
 \begin{itemize}
 \item Successfully completed high-stakes princess extraction from dragon-guarded castle
-\item Demonstrated exceptional problem-solving skills in dealing with magic mirrors
 \item Managed complex stakeholder relationships (donkeys, dragons, talking gingerbread men)
 \item Exceeded KPIs by rescuing princess ahead of sunset deadline
 \end{itemize}}
@@ -46,16 +50,9 @@ Accomplished ogre with extensive experience in swamp management, princess rescue
 \begin{itemize}
 \item Maintained premium wetland property through sustainable practices
 \item Developed innovative "Layers of Security" system
-\item Successfully deterred 100% of unwanted visitors through aggressive territory marking
 \item Established first-of-its-kind mud bath spa facilities
 \end{itemize}}
 
-\cvitem{1996-1997}{Onion Research Assistant}{Onion University}{
-\begin{itemize}
-\item Contributed to groundbreaking research on metaphorical properties of onions
-\item Published paper: "Why Ogres Are Like Onions: A Layer-by-Layer Analysis"
-\item Mentored students in advanced layer peeling techniques
-\end{itemize}}
 
 \cvsection{Education}
 \cvitem{1997-2000}{PhD in Swamp Management}{Onion University}{Thesis: "Sustainable Wetland Maintenance: A Holistic Approach to Keeping People Out of Your Swamp"}
@@ -67,16 +64,13 @@ Accomplished ogre with extensive experience in swamp management, princess rescue
 \cvsimpleitem{Technical}{Torch wielding, Pitchfork evasion, Advanced roaring, Village evacuation techniques}
 \cvsimpleitem{Soft Skills}{Cross-species communication, Fairy tale creature negotiation, Motivational roaring}
 \cvsimpleitem{Other}{
-\begin{itemize}
-\item Expert in onion-based cooking and metaphors
-\item Professional-level ear wax candle crafting
-\item Advanced swamp maintenance and territory marking
-\item Certified in princess rescue operations
-\item Experienced in dealing with magical creatures
-\item Proficient in duloc destruction
-\item Championship-level mud bathing
-\item Accomplished karaoke performer ("All Star" specialist)
-\end{itemize}}
+    Expert in onion-based cooking and metaphors, 
+    Professional-level ear wax candle crafting, 
+    Advanced swamp maintenance and territory marking, 
+    Experienced in dealing with magical creatures, 
+    Championship-level mud bathing, 
+    Accomplished karaoke performer ("All Star" specialist), 
+}
 
 \cvsection{Certifications}
 \cvitem{2001}{Certified Princess Rescuer (CPR)}{Far Far Away Safety Council}{}
