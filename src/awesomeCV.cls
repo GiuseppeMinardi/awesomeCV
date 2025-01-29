@@ -7,32 +7,29 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{awesomeCV}[2020/09/22 Example LaTeX class]
 
-% Base class
 \LoadClass{article}
 
-% Required packages
-\RequirePackage{calc}        % For length calculations
-\RequirePackage{graphicx}    % For image handling
-\RequirePackage{fancyhdr}    % For header and footer customization
-\RequirePackage[a4paper, left=10mm, right=10mm, top=10mm, bottom=10mm]{geometry}  % Page layout
-\RequirePackage{microtype}   % For typography improvements
-
-% Bibliography setup with biblatex
+% Base class
+\RequirePackage{calc} 
+\RequirePackage{graphicx} 
+\RequirePackage{fancyhdr}
+\RequirePackage[a4paper, left=10mm, right=10mm, top=10mm, bottom=10mm]{geometry}
+\RequirePackage{microtype}
 \RequirePackage[
-    backend=biber,           % Use biber backend
-    style=numeric,           % Numeric citation style
-    sorting=ydnt,           % Sort by year (descending)
-    maxbibnames=99,         % Show all author names
-    giveninits=true,        % Use initials for first names
-    uniquename=init         % Disambiguate authors by initials
+    backend=biber,
+    style=numeric, 
+    sorting=ydnt, 
+    maxbibnames=99, 
+    giveninits=true, 
+    uniquename=init
 ]{biblatex}
 
-% Bibliography formatting customization
-\DeclareNameAlias{sortname}{family-given}          % Author names in family-given order
-\DeclareFieldFormat{labelnumber}{\textcolor{cvdurationcolor}{[#1]}}  % Citation number format
-\renewcommand*{\newunitpunct}{\addperiod\space}    % Punctuation between units
-\renewbibmacro{in:}{}                             % Remove 'in:' prefix
-\renewcommand*{\bibfont}{\small}                  % Bibliography font size
+% Bibliography formatting
+\DeclareNameAlias{sortname}{family-given}
+\DeclareFieldFormat{labelnumber}{\textcolor{cvdurationcolor}{[#1]}}
+\renewcommand*{\newunitpunct}{\addperiod\space}
+\renewbibmacro{in:}{}
+\renewcommand*{\bibfont}{\small}
 
 % Custom bibliography format for year display
 \newbibmacro{cvitem:leftcolumn}{%
@@ -86,6 +83,8 @@
 % Hyperref setup for links
 \RequirePackage[colorlinks, linkcolor = black, citecolor = black, urlcolor = black]{hyperref}
 
+% colours
+\RequirePackage{xcolor}
 % Color definitions
 \RequirePackage{xcolor}
 \definecolor{cvnamecolor}{HTML}{2B6CB0}         % Professional blue for name
@@ -97,19 +96,30 @@
 \definecolor{cvmaincolor}{RGB}{0,0,0}           % Black for main text
 \definecolor{cvpublicationcolor}{HTML}{2B6CB0}  % Professional blue for publications
 
-% Layout dimensions
+%\color{cvmaincolor}
+
+
+
+
+% margin and column widths
+% ------------------------
+
+% width of the gap between left and right column
 \newlength{\cvcolumngapwidth}
-\setlength{\cvcolumngapwidth}{3mm}              % Gap between columns
+\setlength{\cvcolumngapwidth}{3mm}
 
+% left column width
 \newlength{\cvleftcolumnwidth}
-\setlength{\cvleftcolumnwidth}{25mm}            % Left column width
+\setlength{\cvleftcolumnwidth}{25mm}
 
-\newlength{\cvrightcolumnwidth}                 % Right column width (calculated)
+% right column width
+\newlength{\cvrightcolumnwidth}
 \setlength{\cvrightcolumnwidth}{\textwidth-\cvleftcolumnwidth-\cvcolumngapwidth}
 
-\setlength{\parindent}{0mm}                     % No paragraph indentation
+% set paragraph indentation to 0, because it screws up the whole layout otherwise
+\setlength{\parindent}{0mm}
 
-% Text style definitions
+% styles
 \newcommand{\cvnamestyle}[1]{{\Huge\color{cvnamecolor}{#1}}}
 \newcommand{\cvsectionstyle}[1]{{\large\bfseries\textcolor{cvsectioncolor}{#1}}}
 \newcommand{\cvtitlestyle}[1]{{\large\bfseries\textcolor{cvtitlecolor}{#1}}}
@@ -117,6 +127,24 @@
 \newcommand{\cvdurationstyle}[1]{{\small\textcolor{cvdurationcolor}{#1}}}
 \newcommand{\cvheadingstyle}[1]{{\normalsize\textcolor{cvheadingcolor}{#1}}}
 \newcommand{\cvpublicationstyle}[1]{{\normalsize\textcolor{cvpublicationcolor}{#1}}}
+
+
+% inter-item spacing
+% ------------------
+
+% vertical space after personal info and standard CV items
+\newlength{\cvafteritemskipamount}
+\setlength{\cvafteritemskipamount}{2mm plus 1.25mm minus 1.25mm}
+
+% vertical space after sections
+\newlength{\cvaftersectionskipamount}
+\setlength{\cvaftersectionskipamount}{2.5mm plus 0.5mm minus 0.5mm}
+
+% extra vertical space to be used when a section starts with an item with a heading (e.g. in the skills section),
+% so that the heading does not follow the section name too closely
+\newlength{\cvbetweensectionandheadingextraskipamount}
+\setlength{\cvbetweensectionandheadingextraskipamount}{1mm plus 0.25mm minus 0.25mm}
+
 
 % intra-item spacing
 % ------------------
@@ -141,79 +169,107 @@
 \RequirePackage{enumitem}
 \setlist{parsep=0mm, topsep=0mm, partopsep=0mm, itemsep=\cvparskip}
 
+
 % CV commands
-% Personal info section with name and details
+% --------------------------------------------------------------------------------------------------
+
+% creates a "personal info" CV item with the given left and right column contents, with appropriate vertical space after
 \newcommand{\cvpersonalinfo}[2]{
+    % left and right column
     \begin{minipage}[t]{35mm}
-        \vspace{0mm}
+        \vspace{0mm}                                                            % XXX hack to align to top, see https://tex.stackexchange.com/a/11632
         \raggedleft \cvnamestyle{#1}
-    \end{minipage}%
-    \hspace{\cvcolumngapwidth}%
+    \end{minipage}                                                              % XXX necessary comment to avoid unwanted space
+    \hspace{\cvcolumngapwidth}                                                  % XXX necessary comment to avoid unwanted space
     \begin{minipage}[t]{\cvrightcolumnwidth}
-        \vspace{0mm}
+        \vspace{0mm}                                                            % XXX hack to align to top, see https://tex.stackexchange.com/a/11632
         #2
     \end{minipage}
+
+
     \vspace{\cvafteritemskipamount}
 }
 
-% Title command for CV entries
+% typesets a title, with appropriate vertical space after
+% @param #1 title text
+
 \newcommand{\cvtitle}[1]{
     \cvtitlestyle{#1}
 }
 
 % Section command with horizontal rule
 \newcommand{\cvsection}[1]{
+    % left and right column
     \begin{minipage}[t]{\cvleftcolumnwidth}
         \raggedleft\cvsectionstyle{#1}
-    \end{minipage}%
-    \hspace{\cvcolumngapwidth}%
+    \end{minipage}                                                              % XXX necessary comment to avoid unwanted space
+    \hspace{\cvcolumngapwidth}% XXX necessary comment to avoid unwanted space
     \begin{minipage}[t]{\cvrightcolumnwidth}
         \textcolor{cvrulecolor}{\rule{\cvrightcolumnwidth}{0.3mm}}
     \end{minipage}
+
+    % space after
     \vspace{\cvaftersectionskipamount}
 }
 
+                                                                                % @param #2 right column content
 % Standard CV item with duration, title, organization, and description
 \newcommand{\cvitem}[4]{
+    % left and right column
     \begin{minipage}[t]{\cvleftcolumnwidth}
-        \raggedleft \cvdurationstyle{#1}
-    \end{minipage}%
-    \hspace{\cvcolumngapwidth}%
+        \raggedleft \cvdurationstyle{ #1 }
+
+
+    \end{minipage}% XXX necessary comment to avoid unwanted space
+    \hspace{\cvcolumngapwidth}% XXX necessary comment to avoid unwanted space
     \begin{minipage}[t]{\cvrightcolumnwidth}
         \setlength{\parskip}{\cvparskip}
+
         \cvtitle{#2} --
         \cvorganizationstyle{#3}
+
         \small{#4}
     \end{minipage}
+
+    % space after
     \vspace{\cvafteritemskipamount}
 }
 
-% Slim CV item for shorter entries
 \newcommand{\cvslimitem}[3]{
+    % left and right column
     \begin{minipage}[t]{\cvleftcolumnwidth}
         \raggedleft \cvdurationstyle{#1}
-    \end{minipage}%
-    \hspace{\cvcolumngapwidth}%
+
+
+
+    \end{minipage}% XXX necessary comment to avoid unwanted space
+    \hspace{\cvcolumngapwidth}% XXX necessary comment to avoid unwanted space
     \begin{minipage}[t]{\cvrightcolumnwidth}
         \setlength{\parskip}{\cvparskip}
+
         \cvtitlestyle{#2}: \small{#3}
     \end{minipage}
+
+    % space after
     \vspace{\cvafteritemskipamount}
 }
 
-% Simple CV item for basic entries
 \newcommand{\cvsimpleitem}[2]{
+    % left and right column
     \begin{minipage}[t]{\cvleftcolumnwidth}
-        \raggedleft \cvdurationstyle{#1}
-    \end{minipage}%
-    \hspace{\cvcolumngapwidth}%
+        \raggedleft \cvdurationstyle{ #1 }
+
+    \end{minipage}% XXX necessary comment to avoid unwanted space
+    \hspace{\cvcolumngapwidth}% XXX necessary comment to avoid unwanted space
     \begin{minipage}[t]{\cvrightcolumnwidth}
         \setlength{\parskip}{\cvparskip} \small{#2}
     \end{minipage}
+
+    % space after
     \vspace{\cvafteritemskipamount}
 }
 
-% Publications section command
+% New publication commands
 \newcommand{\cvpublications}[1]{
     \nocite{#1}
     \setlength{\bibhang}{0pt}
@@ -231,7 +287,7 @@
     \printbibliography[heading=none]
 }
 
-% Publication field formatting
+% Publication styling
 \DeclareFieldFormat[article,inproceedings]{title}{\cvpublicationstyle{#1}}
 \DeclareFieldFormat{pages}{pp. #1}
 \DeclareFieldFormat{doi}{\newline\url{https://doi.org/#1}}
@@ -240,12 +296,11 @@
 \DeclareFieldFormat{booktitle}{\textit{#1}}
 \DeclareFieldFormat{journal}{\textit{#1}}
 
-% Bibliography string customization
+% Customize bibliography string
 \DefineBibliographyStrings{english}{
   in = {in},
   pages = {pp\adddot},
   page = {p\adddot}
 }
 
-% Empty page style (no headers/footers)
 \pagestyle{empty}
